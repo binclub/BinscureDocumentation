@@ -50,16 +50,7 @@ hardExclusions:
 ```
 
 ## Transformers
-This is a list of all available transformers in binscure:
-- 
-- sourceStrip 
-- kotlinMetadata
-- crasher
-- indirection
-- stringObfuscation # Hides string constants
-- flowObfuscation # Makes method flow hard to follow both manually and through control flow graphs
-
-Each transformer can be configured like so:
+Example:
 ```Yaml
 remap: # Renames classes, fields, and methods
     enabled: false
@@ -84,10 +75,10 @@ crasher: # Uses certain tricks to completely crash some decompilers and disassem
 indirection: # Hides method calls
     enabled: false
 
-stringObfuscation:
+stringObfuscation: # Hides string constants
     enabled: false
 
-flowObfuscation:
+flowObfuscation: # Makes method flow hard to follow both manually and through control flow graphs
     enabled: false
     severity: HARD # (NORMAL, HARD, SEVERE, AGGRESSIVE)
 ```
