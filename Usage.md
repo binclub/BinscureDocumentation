@@ -52,43 +52,119 @@ hardExclusions:
 ## Transformers
 Example:
 ```Yaml
-remap: # Renames classes, fields, and methods
+# Handles renaming
+remap:
     enabled: false
     classes: true
     methods: true
     fields: true
-    classPrefix: ""
+    localVariables: true
+    classPrefix: "com/project/"
     methodPrefix: ""
     fieldPrefix: ""
-    aggressiveOverloading: false # Will aggressively overload member names with different descriptions
+    localVariableName: "" # Empty to remove local variables
+    # Will aggressively overload member names with different descriptions
+    aggressiveOverloading: false 
+    obfuscateEnums: true
 
-sourceStrip: # Removes debugging information left by compilers
+# Strip source file information
+sourceStrip:
     enabled: false
-    lineNumbers: REMOVE (REMOVE/KEEP)
+    # Default is REMOVE, options [KEEP/REMOVE]
+    lineNumbers: REMOVE
 
-kotlinMetadata: # Removes metadata left by the kotlin compiler used for kotlinx-reflection
+# Removes additional data created by the kotlin compiler
+# WARNING: Can break the kotlinx.reflect library
+kotlinMetadata:
+    enabled: false
+    # Options: REMOVE/CENSOR
+    type: CENSOR
+
+# Employs various tactics to limit or remove functionality from reverse engineering libraries
+crasher:
+    enabled: false
+     # Exploits various ZIP standard vulnerabilities
+    checksums: false
+    # Attemps to break the ASM library
+    antiAsm: false
+
+# Encrypts constants constants and decrypts them dynamically at runtime
+# Uses Context checking and may impact application startup time
+stringObfuscation:
     enabled: false
 
-crasher: # Uses certain tricks to completely crash some decompilers and disassemblers
-    enabled: false
+# Obscure the control flow of the program
+flowObfuscation:
+    enabled: true
+    # Lower = more severe, higher file size, less performance
+    # Higher = less severe, lower file size, more performance
+    severity: 7
+    # Options: NONE, BLOAT_CLASSES
+    mergeMethods: BLOAT_CLASSES
 
-indirection: # Hides method calls
-    enabled: false
-
-stringObfuscation: # Hides string constants
-    enabled: false
-
-flowObfuscation: # Makes method flow hard to follow both manually and through control flow graphs
-    enabled: false
-    severity: HARD # (NORMAL, HARD, SEVERE, AGGRESSIVE)
+optimisation:
+    enabled: true
+    # Enums by default store their available values in a private `values` field. This field is cloned and returned using
+    # the "values()" method. Cloning this array can introduce performance and memory issues.
+    # This transformer removes the array cloning, increasing peformance but potentially allowing unsafe modification of enum values
+    mutableEnumValues: false
 ```
 
 ## Other options
 There are some other extra options that you can set:
 ```Yaml
-# If set to true you will not be warned about classes not being found in the libraries
+# Disable "WARNING: class was not found in the classpath" warnings
+# Default is false
 ignoreClassPathNotFound: false
 
 # A file path where a .csv mappings file will be saved
 mappingFile: null
 ```
+
+## Full Example
+```Yaml
+input: test.jar
+output: test-obf.jar
+
+libraries:
+    - library1.jar
+    - library2.jar
+
+hardExclusions:
+	- kotlin/
+
+exclusions:
+	- dev/binclub/test/api
+
+remap:
+    enabled: true
+    classPrefix: "dev/binclub/"
+    localVariableName: ""
+    aggressiveOverloading: false
+
+sourceStrip:
+    enabled: true
+    lineNumbers: REMOVE
+
+kotlinMetadata:
+    enabled: true
+
+crasher:
+    enabled: true
+	antiAsm: true
+	checksums: true
+
+stringObfuscation:
+    enabled: true
+
+flowObfuscation:
+    enabled: true
+    severity: 6
+    mergeMethods: NONE
+
+ignoreClassPathNotFound: false
+mappingFile: mappings.csv
+```
+
+## Minecraft Forge
+If obfuscating for minecraft forge make sure to include `forge-version-binpatched.jar` and `forge-version-srgBin.jar` in your libraries.
