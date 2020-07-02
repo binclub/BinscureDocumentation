@@ -52,8 +52,8 @@ hardExclusions:
 You can also specify exclusions for a specific transformer, e.g.:
 ```Yaml
 remap:
-	exclusions:
-		- com/binclub/binscure/api # Classes in this package will not be remapped
+    exclusions:
+        - com/binclub/binscure/api # Classes in this package will not be remapped
 ```
 
 ## Transformers
