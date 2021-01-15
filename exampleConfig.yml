@@ -66,12 +66,16 @@ indirection:
 stringObfuscation:
   enabled: true
 
+# Substitute arithmetic operations with mixed boolean substitutes
+arithmetic:
+  enabled: true
+  repeat: 3 # number of times to apply the arithmetic obfuscation (exponential). Around 2-4 is good.
+
 # Obscure the control flow of the application
 flowObfuscation:
   enabled: true
   severity: 5 # lower = more severe, larger file size, slower peformance; higher = less severe...
   mergeMethods: BLOAT_CLASSES # or EXISTING_CLASSES/NONE. Relocates methods into new classes, creating confusing methods that do not match the class they are situated in
-  arithmetic: true # Mixed boolean arithmetic. Converts traditional arithmetic into a mixture of both boolean and traditional
   noverify: false # create unverifiable bytecode that is very hard to decompile or dissasemble. Requires output application to be run with -noverify argument.
   java8: false # If the application only targets java 8 virtual machines by setting this to true the output application will NOT have to be run with -noverify
 
