@@ -76,6 +76,7 @@ flowObfuscation:
   enabled: true
   severity: 5 # lower = more severe, larger file size, slower peformance; higher = less severe...
   mergeMethods: BLOAT_CLASSES # or EXISTING_CLASSES/NONE. Relocates methods into new classes, creating confusing methods that do not match the class they are situated in
+  arithmetic: false # old arithmetic obfuscation, now legacy
   noverify: false # create unverifiable bytecode that is very hard to decompile or dissasemble. Requires output application to be run with -noverify argument.
   java8: false # If the application only targets java 8 virtual machines by setting this to true the output application will NOT have to be run with -noverify
 
