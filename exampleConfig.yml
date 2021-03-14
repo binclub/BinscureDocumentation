@@ -22,8 +22,10 @@ hardExclusions:
   - com/example/library/
 
 # Rename identifiers
+# Deprecated - known to cause issues on complicated class structures
+# May work for you, but issues are not planned to be fixed, instead you should use proguard for remapping
 remap:
-  enabled: true
+  enabled: false
   dictionary: "c0123456789abdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
   classes: true # obfuscate class names
   methods: true # obfuscate method names
