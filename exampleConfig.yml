@@ -1,7 +1,10 @@
-# Path to the non obfuscated jar file
-input: inputFile.jar
-# Path to where the obfuscated jar file will be written
-output: outputFile.jar
+sources:
+  - input: inputFile.jar # Path to the non obfuscated jar file
+    output: outputFile.jar # Path to where the obfuscated jar file will be written
+  - input: secondInput.jar # Optional extra sources
+    output: secondOutput.jar
+  - input: aClassFile.class # Direct classes can also be specified
+    output: out.jar # However a jar will be outputted
 
 # Path to where the obfuscation mappings will be outputted. You can use this to deobfuscate stack traces.
 mappingFile: mappings.csv
