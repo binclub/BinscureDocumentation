@@ -64,9 +64,17 @@ crasher:
   antiAsm: true # crash the ow2 ASM library. May not work in conjunction with tools like Spigot and Forge
   recaf: true # hinder the functionality of the Recaf tool
 
-# Ture static method calls into dynamic ones. Makes static reverse engineering of execution flow significantly harder.
+# Ture static references into dynamic ones. Makes static reverse engineering of execution flow significantly harder.
 indirection:
-  enabled: true
+  # indy method call transformations
+  methodCalls: true
+  # indy field access transformations
+  fieldAccesses: true
+  # raw memory variable access transformations - local variable accesses will get turned into direct heap accesses
+  variableAccesses: true
+  # minimum local variables in method to apply raw memory transforms
+  # too low will result in worthless memory allocations for tiny methods
+  variableAccessesMinVariables: 5
 
 # Encrypt strings and dynamically decrypt them at runtime (with anti tampering checks)
 stringObfuscation:
