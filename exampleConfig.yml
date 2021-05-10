@@ -17,7 +17,11 @@ libraries:
 
 # List of class names to be excluded from all transformations
 exclusions:
-  - com/example/application/api/ # Do not obfuscate api classes
+  - "com/example/application/api/" # Do not obfuscate api classes
+  - "com/example/application/api/Api;" # ; means match exact name
+  - "com/example/application/api/Api-" # - means names starting with but not exactly
+  - "r#com\/example\/application\/api\/.*" # r# means regex
+  - "@com/example/DontObfuscate" # @ means ignore anything with the exact annotation name
 
 # List of class names to be completely ignored by the obfuscator
 # This will help peformance but may prevent remapping from properly taking place
