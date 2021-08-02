@@ -112,6 +112,9 @@ optimisation:
 numberObfuscation:
   enabled: true
 
+# Cause undefined behaviour in application if system time is later than given time
+expiryDate: "2022-03-14T09:26:53.590Z"
+
 # Ignore warning errors about classes not being present in classpath
 ignoreClassPathNotFound: false
 
