@@ -83,6 +83,8 @@ indirection:
 # Encrypt strings and dynamically decrypt them at runtime (with anti tampering checks)
 stringObfuscation:
   enabled: true
+  # Maximum chars in a string if it is to be obfuscated. Prevents UTF8 string too large errors.
+  maxLength: 2000
 
 # Substitute arithmetic operations with mixed boolean substitutes
 arithmetic:
@@ -94,6 +96,8 @@ flowObfuscation:
   enabled: true
   severity: 5 # lower = more severe, larger file size, slower peformance; higher = less severe...
   mergeMethods: BLOAT_CLASSES # or EXISTING_CLASSES/NONE. Relocates methods into new classes, creating confusing methods that do not match the class they are situated in
+  # hard set the version of merged classfiles (done by flowObfuscation.mergeMethods) - uses jvm version numbers as defined at https://docs.oracle.com/javase/specs/jvms/se15/html/jvms-4.html#jvms-4.1-200-B.2
+  mergeVersion: 55
   arithmetic: false # old arithmetic obfuscation, now legacy
   noverify: false # create unverifiable bytecode that is very hard to decompile or dissasemble. Requires output application to be run with -noverify argument.
   java8: false # If the application only targets java 8 virtual machines by setting this to true the output application will NOT have to be run with -noverify
