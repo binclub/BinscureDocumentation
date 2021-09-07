@@ -70,6 +70,7 @@ crasher:
 
 # Ture static references into dynamic ones. Makes static reverse engineering of execution flow significantly harder.
 indirection:
+  enabled: true
   # indy method call transformations
   methodCalls: true
   # indy field access transformations
